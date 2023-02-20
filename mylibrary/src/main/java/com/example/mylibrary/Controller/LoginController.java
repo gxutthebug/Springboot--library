@@ -1,7 +1,11 @@
 package com.example.mylibrary.Controller;
 
+import com.example.mylibrary.domain.Manage;
 import com.example.mylibrary.domain.Student;
+import com.example.mylibrary.service.imp.ManageServiceImpl;
 import com.example.mylibrary.service.imp.StudentServiceImpl;
+import com.example.mylibrary.utils.JwtUtils;
+import com.example.mylibrary.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +20,12 @@ public class LoginController {
     @Autowired
       private StudentServiceImpl studentService;
 
+    @Autowired
+      private ManageServiceImpl manageService;
+
 
     @PostMapping("/account/login")
     public Map<String,Object> login(@RequestBody Student student) {
-
-
 
         Map<String,Object> loginMap = new HashMap<>();  // 一个集合就是一个JS的纯属性对象，即一个{}里面没有方法!!!!!!
 
@@ -30,8 +35,6 @@ public class LoginController {
 //        System.out.println(loginUser.getName());
 //        System.out.println(loginUser.getAge());
         System.out.println(student);
-
-
 
 
         Student loginstudent = studentService.selectByusername(student.getStuusername());
@@ -58,6 +61,22 @@ public class LoginController {
     }
 
 
+    @PostMapping("/manage/login")
+    public Result login2(@RequestBody Manage manage) {  // 这个接口用了封装好的Result类来做统一的响应
+        System.out.println("lalla");
+         Manage loginmanage = manageService.SelectBymgename(manage.getMgename());
+        System.out.println(manage.getMgename());
+        System.out.println(loginmanage);
+
+        if(loginmanage.getPassword().equals(manage.getPassword())){
+            System.out.println("密码正确");
+            String token = JwtUtils.generateToken(manage.getMgename());
+            return Result.ok().data("token",token);
+        }else {
+            return Result.error();
+        }
+
+    }
 
 
 }

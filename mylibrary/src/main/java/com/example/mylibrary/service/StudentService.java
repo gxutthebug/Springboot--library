@@ -9,4 +9,6 @@ public interface StudentService {
     public Student selectByStuId(String id);
 
     public Student selectByusername(String username);
+
+    public void ResetPassword (String id,String newpassword);
 }

@@ -6,6 +6,7 @@ import com.example.mylibrary.domain.Seat;
 import com.example.mylibrary.service.imp.OrderServiceImpl;
 import com.example.mylibrary.service.imp.RoomServiceImpl;
 import com.example.mylibrary.service.imp.SeatServiceImpl;
+import com.example.mylibrary.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -95,6 +96,17 @@ public class CommonController {
         return orderid;
     }
 
+    @PostMapping("/register")
+    public Result seatregister(String seatid) {
+        seatService.UpdateSeatValue(seatid);
+        return Result.ok().data("result","成功签到");
+    }
 
+
+    @PostMapping("/reset")
+    public Result  seatreset(String seatid) {
+        seatService.BackSeatValue(seatid);
+        return Result.ok().data("result","成功签退");
+    }
 
 }

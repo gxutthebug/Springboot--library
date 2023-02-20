@@ -21,4 +21,9 @@ public class StudentServiceImpl implements StudentService {
     public Student selectByusername(String username) {
         return studentMapper.selectByusername(username);
     }
+
+    @Override
+    public void ResetPassword(String id, String newpassword) {
+        studentMapper.ResetPassword(id , newpassword);
+    }
 }

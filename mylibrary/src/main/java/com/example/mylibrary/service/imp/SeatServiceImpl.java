@@ -19,4 +19,14 @@ public class SeatServiceImpl implements SeatService {
     public List<Seat> selectSeatsByRoom(String roomid){
         return seatMapper.selectSeatsByRoom(roomid);
     }
+
+    @Override
+    public void UpdateSeatValue(String seatid) {
+        seatMapper.UpdateSeatValue(seatid);
+    }
+
+    @Override
+    public void BackSeatValue(String seatid) {
+         seatMapper.BackSeatValue(seatid);
+    }
 }
